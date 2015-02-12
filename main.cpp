@@ -159,7 +159,7 @@ void Queue<T>::growShrinkQ()
         switch(option)
         {
             case 1:
-                addQ("");
+                addQ('A');
                 break;
             case 2:
                 delQ();
@@ -183,11 +183,11 @@ template <class T>
 void Queue<T>::wrapQ()
 {
     for(int i=1;i<=8;i++)
-    addQ("");
+    addQ('A');
     for(int i=1;i<=3;i++)
     delQ();
     for(int i=1;i<=3;i++)
-    addQ("");
+    addQ('A');
     cout << "The front pointer is " << front << endl;
     cout << "The rear pointer is " << rear << endl;
 }
@@ -204,8 +204,8 @@ void Queue <T>::growTilOverflowQ()
     }
 cout << "Queue length is " << lengthQ() << " . Adding until overflow" << endl;
 while(!fullQ())
-    addQ("Size");
-addQ("Size");
+    addQ('A');
+addQ('A');
 }
 
 template <class T>
@@ -215,7 +215,7 @@ void Queue <T>::shrinkTilUnderflowQ()
     {
         while(!fullQ())
         {
-            addQ("Test");
+            addQ('A');
         }
     }
 cout << "Queue length is " << lengthQ() << " . Deleting until underflow" << endl;
@@ -227,7 +227,7 @@ delQ();
 template <class T>
 void Queue <T>::output1Q()
 {
-    addQ("Test");
+    addQ('A');
 
     if(lengthQ()==1)
     {
@@ -244,7 +244,7 @@ void Queue <T>::output5Q()
 {
     for(int i=1; i<=5; i++)
     {
-         addQ("Test");
+         addQ('A');
     }
 
     if(lengthQ()==5)
@@ -262,7 +262,7 @@ void Queue <T>::outputFullQ()
 {
     while(!fullQ())
     {
-        addQ("Test");
+        addQ('A');
     }
     if(fullQ())
     {
@@ -301,11 +301,12 @@ char Queue<T>::miniMenu(bool isMiniMenu)
     cout << "\t6) Set and output a 5 element Queue." << endl;
     cout << "\t7) Set and output a full Queue." << endl;
     cout << "\t8) Clear and reset a Queue." << endl;
+    cout << "\t9) Print the Queue." << endl;
     cout << endl << "\t0) Quit." << endl;
     }
     else
     {
-        cout << "\n\n1)Grow/Shrink\t2)Wrap\t3)Over\t4)Under\t\t5)1Q\t\t6)5Q\t\t7)Full\t\t8)Reset\n";
+        cout << "\n\n1)Grow/Shrink\t2)Wrap\t3)Over\t4)Under\t\t5)1Q\t\t6)5Q\t\t7)Full\t\t8)Reset\t\t9)Print\n";
     }
     cout << endl;
     cout << ">>>";
@@ -340,6 +341,7 @@ int Queue<T>::menu()
             case '6': clearQ(); output5Q(); printMenu = false; break;
             case '7': clearQ(); outputFullQ(); printMenu = false; break;
             case '8': clearQ(); outputClearedQ(); printMenu = false; break;
+            case '9': cout << endl; writeQ(); printMenu = false; break;
             default : cerr << "\nERROR: '" << option << "' is not a valid menu option.\n\n"; printMenu = true; break;
         }
     }
@@ -350,7 +352,7 @@ int Queue<T>::menu()
 int main()
 {
 
-    Queue<string>a(10);
+    Queue<char>a(10);
     a.menu();
     return 0;
 }

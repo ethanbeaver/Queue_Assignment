@@ -257,8 +257,6 @@ void Queue <T>::outputClearedQ()
 
 int main()
 {
-
     Queue<string>a(10);
     return 0;
 }
-

@@ -21,6 +21,14 @@ public:
     int lengthQ();
     void writeQ();
     void clearQ();
+    void growShrinkQ();
+    void wrapQ();
+    void growTilOverflowQ();
+    void shrinkTilUnderflowQ();
+    void output1Q();
+    void output5Q();
+    void outputFullQ();
+    void outputClearedQ();
 };
 
 template <class T>
@@ -130,14 +138,5 @@ void Queue <T>::clearQ()
 
 int main()
 {
-    Queue<string> a(4);
-    a.addQ("Test");
-    a.addQ("Test");
-    a.addQ("Test");
-    a.delQ();
-    a.delQ();
-    a.addQ("Test");
-    a.addQ("Test");
-    cout << a.lengthQ();
     return 0;
 }

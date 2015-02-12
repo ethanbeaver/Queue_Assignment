@@ -231,7 +231,7 @@ void Queue <T>::output1Q()
 
     if(lengthQ()==1)
     {
-        cout << "\nThere is one element in the queue. Congratulations. I guess?" << endl;
+        cout << "\nThere is " << lengthQ() << " element in the queue. Congratulations." << endl;
     }
     else
     {
@@ -249,7 +249,7 @@ void Queue <T>::output5Q()
 
     if(lengthQ()==5)
     {
-        cout << "\nThere are five elements in the queue. Congratulations. I guess?" << endl;
+        cout << "\nThere are " << lengthQ() << " elements in the queue. Congratulations." << endl;
     }
     else
     {

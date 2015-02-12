@@ -251,14 +251,23 @@ void Queue <T>::outputClearedQ()
         cout << "\nQueue contains "<< lengthQ() << " elements. Clearing Queue." << endl;
         clearQ();
         cout << "\nQueue length is now: " << lengthQ() << ". That is all." << endl;
-
 }
 
+template <class T>
+void Queue<T>::wrapQ()
+{
+    for(int i=1;i<=8;i++)
+    addQ("");
+    for(int i=1;i<=3;i++)
+    delQ();
+    for(int i=1;i<=3;i++)
+    addQ("");
+    cout << "The front pointer is " << front << endl;
+    cout << "The rear pointer is " << rear << endl;
+}
 
 int main()
 {
-
     Queue<string>a(10);
     return 0;
 }
-

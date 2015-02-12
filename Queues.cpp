@@ -92,7 +92,12 @@ T Queue<T>::delQ()
 template <class T>
 int Queue<T>::lengthQ()
 {
-    if(front<rear)
+    if (emptyQ())
+    {
+        cerr << "\nWARNING - Queue is Empty\n";
+        return 0;
+    }
+    else if(front<rear)
     {
         return rear-front;
     }
@@ -127,20 +132,14 @@ void Queue <T>::clearQ()
 
 int main()
 {
-    Queue<string> a(5);
-    a.writeQ();
-    a.addQ("Cherry");
-    a.addQ("Apple");
-    a.addQ("Banana");
-    a.writeQ();
-    a.addQ("Pecan");
-    cout << endl;
-    a.writeQ();
-    cout << endl;
-    cout << a.delQ() << endl;
-    cout << a.delQ() << endl;
-    cout << a.delQ() << endl;
-    cout << a.delQ() << endl;
-    cout << a.delQ() << endl;
+    Queue<string> a(4);
+    a.addQ("Test");
+    a.addQ("Test");
+    a.addQ("Test");
+    a.delQ();
+    a.delQ();
+    a.addQ("Test");
+    a.addQ("Test");
+    cout << a.lengthQ();
     return 0;
 }

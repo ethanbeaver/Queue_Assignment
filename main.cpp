@@ -123,12 +123,28 @@ void Queue<T>::writeQ()
     if(emptyQ())
     {
         cout << "\nQueue Empty\n";
-    }
-    else
-    {
-        for(int i=1; i<=lengthQ();i++)
+    }/*for(int i=1; i<=lengthQ();i++)
         {
             cout << Q[(front+i)%size] << "  ";
+        }*/
+    else if(rear>front)
+    {
+        for(int i=0; i<size;i++)
+        {
+            if((i<=rear)&&(i>front))
+                cout << Q[i%size] << "  ";
+            else
+                cout << "Null" << "  ";
+        }
+    }
+    else if(rear<front)
+    {
+        for(int i=0; i<size;i++)
+        {
+            if((i<=rear)||(i>front))
+                cout << Q[i%size] << "  ";
+            else
+                cout << "Null" << "  ";
         }
     }
 }
@@ -356,4 +372,3 @@ int main()
     a.menu();
     return 0;
 }
-

@@ -70,13 +70,14 @@ void Queue<T>::addQ(T data)
 {
     if(fullQ())
     {
-        cout << "\nQueue Overflow\n";
-        abort();
+        cout << "\nQueue Overflow\n\n";
+        exit;
     }
     else
     {
         rear = (rear+1)%size;
         Q[rear] = data;
+        cout << "Element Added\n";
     }
 }
 
@@ -85,12 +86,13 @@ T Queue<T>::delQ()
 {
     if(emptyQ())
     {
-        cout << "\nQueue Underflow\n";
-        abort();
+        cout << "\nQueue Underflow\n\n";
+        exit;
     }
     else
     {
         front = (front +1)%size;
+        cout << "Element Deleted\n";
         return Q[front];
     }
 }
@@ -100,7 +102,6 @@ int Queue<T>::lengthQ()
 {
     if (emptyQ())
     {
-        cerr << "\nWARNING - Queue is Empty\n";
         return 0;
     }
     else if(front<rear)
@@ -130,6 +131,32 @@ void Queue<T>::writeQ()
 }
 
 template <class T>
+void Queue<T>::growShrinkQ()
+{
+    int option;
+    cout << "This is a function to grow and shrink the queue.\nTo add an element to the Queue, press 1.\nTo remove an element from the Queue, press 2.\nTo print the length of the Queue, press 3.\nTo quit the function, press 0.\n";
+    cout << "Enter your choice: ";
+    cin >> option;
+    while(option!=0)
+    {
+        switch(option)
+        {
+            case 1:
+                addQ("");
+                break;
+            case 2:
+                delQ();
+                break;
+            case 3:
+                cout << lengthQ() << endl; break;
+        }
+        cout << "Enter your choice: ";
+        cin >> option;
+    }
+
+}
+
+template <class T>
 void Queue <T>::clearQ()
 {
     front=rear=0;
@@ -138,5 +165,7 @@ void Queue <T>::clearQ()
 
 int main()
 {
+    Queue<string> a(10);
+    a.growShrinkQ();
     return 0;
 }

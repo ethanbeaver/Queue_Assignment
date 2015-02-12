@@ -162,10 +162,103 @@ void Queue<T>::growShrinkQ()
     }
 }
 
+template <class T>
+void Queue <T>::growTilOverflowQ()
+{
+    if(fullQ())
+    {
+        while(!emptyQ())
+        {
+            delQ();
+        }
+    }
+cout << "Queue length is " << lengthQ() << " . Adding until overflow" << endl;
+while(!fullQ())
+    addQ("Size");
+addQ("Size");
+}
+
+template <class T>
+void Queue <T>::shrinkTilUnderflowQ()
+{
+    if(emptyQ())
+    {
+        while(!fullQ())
+        {
+            addQ("Test");
+        }
+    }
+cout << "Queue length is " << lengthQ() << " . Deleting until underflow" << endl;
+while(!emptyQ())
+    delQ();
+delQ();
+}
+
+template <class T>
+void Queue <T>::output1Q()
+{
+    addQ("Test");
+
+    if(lengthQ()==1)
+    {
+        cout << "\nThere is one element in the queue. Congratulations. I guess?" << endl;
+    }
+    else
+    {
+        cout << "\nThere is NOT one element in the queue. Rather, there are " << lengthQ() << " elements." << endl;
+    }
+}
+
+template <class T>
+void Queue <T>::output5Q()
+{
+    for(int i=1; i<=5; i++)
+    {
+         addQ("Test");
+    }
+
+    if(lengthQ()==5)
+    {
+        cout << "\nThere are five elements in the queue. Congratulations. I guess?" << endl;
+    }
+    else
+    {
+        cout << "\nThere are NOT five elements in the queue. Rather, there are " << lengthQ() << " elements." << endl;
+    }
+}
+
+template <class T>
+void Queue <T>::outputFullQ()
+{
+    while(!fullQ())
+    {
+        addQ("Test");
+    }
+    if(fullQ())
+    {
+        cout << "\nQueue is full with "<< lengthQ() << " elements." << endl;
+    }
+    else
+    {
+        cout << "\nQueue is NOT full with " << lengthQ() << " elements." << endl;
+    }
+}
+
+template <class T>
+void Queue <T>::outputClearedQ()
+{
+        addQ("Size");
+        cout << "\nQueue contains "<< lengthQ() << " elements. Clearing Queue." << endl;
+        clearQ();
+        cout << "\nQueue length is now: " << lengthQ() << ". That is all." << endl;
+
+}
 
 
 int main()
 {
-    Queue<string> a(10);
+
+    Queue<string>a(10);
     return 0;
 }
+

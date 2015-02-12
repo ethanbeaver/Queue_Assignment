@@ -42,9 +42,12 @@ Queue <T>::Queue()
 template <class T>
 Queue <T>::Queue(int setSize)
 {
+    if(setSize>=0)
+    {
     size=setSize;
     Q = new T[size];
     front=rear=0;
+    }
 }
 
 template <class T>
@@ -70,14 +73,13 @@ void Queue<T>::addQ(T data)
 {
     if(fullQ())
     {
-        cout << "\nQueue Overflow\n\n";
-        exit;
+        cout << "\nQueue Overflow\n";
+        abort();
     }
     else
     {
         rear = (rear+1)%size;
         Q[rear] = data;
-        cout << "Element Added\n";
     }
 }
 
@@ -86,13 +88,12 @@ T Queue<T>::delQ()
 {
     if(emptyQ())
     {
-        cout << "\nQueue Underflow\n\n";
-        exit;
+        cout << "\nQueue Underflow\n";
+        abort();
     }
     else
     {
         front = (front +1)%size;
-        cout << "Element Deleted\n";
         return Q[front];
     }
 }
@@ -127,6 +128,11 @@ void Queue<T>::writeQ()
         {
             cout << Q[(front+i)%size] << "  ";
         }
+        for (int j=(rear+1)%size; j<=front;)
+        {
+            cout << " @ ";
+            j=((j+1)%size);
+        }
     }
 }
 
@@ -136,36 +142,87 @@ void Queue <T>::clearQ()
     front=rear=0;
 }
 
+template <class T>
+void Queue <T>::shrinkTilUnderflowQ()
+{
+    if(emptyQ())
+    {
+        while(!fullQ())
+        {
+            addQ("Test");
+        }
+    }
+cout << "Queue length is " << lengthQ() << " . Deleting until underflow" << endl;
+for(int i=lengthQ(); i>=0; i--)
+    delQ();
+}
 
 template <class T>
-void Queue<T>::growShrinkQ()
+void Queue <T>::output1Q()
 {
-    int option;
-    cout << "This is a function to grow and shrink the queue.\nTo add an element to the Queue, press 1.\nTo remove an element from the Queue, press 2.\nTo print the length of the Queue, press 3.\nTo quit the function, press 0.\n";
-    cout << "Enter your choice: ";
-    cin >> option;
-    while(option!=0)
+    addQ("Test");
+
+    if(lengthQ()==1)
     {
-        switch(option)
-        {
-            case 1:
-                addQ("");
-                break;
-            case 2:
-                delQ();
-                break;
-            case 3:
-                cout << lengthQ() << endl; break;
-        }
-        cout << "Enter your choice: ";
-        cin >> option;
+        cout << "\nThere is one element in the queue. Congratulations. I guess?" << endl;
+    }
+    else
+    {
+        cout << "\nThere is NOT one element in the queue. Rather, there are " << lengthQ() << " elements." << endl;
     }
 }
 
+template <class T>
+void Queue <T>::output5Q()
+{
+    for(int i=1; i<=5; i++)
+    {
+         addQ("Test");
+    }
 
+    if(lengthQ()==5)
+    {
+        cout << "\nThere are five elements in the queue. Congratulations. I guess?" << endl;
+    }
+    else
+    {
+        cout << "\nThere are NOT five elements in the queue. Rather, there are " << lengthQ() << " elements." << endl;
+    }
+}
+
+template <class T>
+void Queue <T>::outputFullQ()
+{
+    while(!fullQ())
+    {
+        addQ("Test");
+    }
+    if(fullQ())
+    {
+        cout << "\nQueue is full with "<< lengthQ() << " elements." << endl;
+    }
+    else
+    {
+        cout << "\nQueue is NOT full with " << lengthQ() << " elements." << endl;
+    }
+}
+
+template <class T>
+void Queue <T>::outputClearedQ()
+{
+        addQ("Size");
+        cout << "\nQueue contains "<< lengthQ() << " elements. Clearing Queue." << endl;
+        clearQ();
+        cout << "\nQueue length is now: " << lengthQ() << ". That is all." << endl;
+
+}
 
 int main()
 {
-    Queue<string> a(10);
+
+    Queue<string>a(10);
+    a.addQ("test");
+    a.shrinkTilUnderflowQ();
     return 0;
 }
+

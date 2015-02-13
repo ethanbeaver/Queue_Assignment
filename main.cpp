@@ -1,7 +1,39 @@
+/*****************************************************************************
+ Program file name: QueueManipulator			  OS: Windows 				Assignment: 6
+ Programmer: Matthew Fennell and Ethan Beaver (Pair programmed with Dr. Klein's permission)
+ Ryan Rabello (MiniMenu function recycled)
+ Class: CPTR 142	        Date: 2/12/15
+ Compiler:
+
+ Assistance/references: Lecture 14, 15
+ Description: A menu based application that does various queue related tasks.
+ Inputs:
+ Outputs:
+
+ Special Comments:
+    The queue is reset at the beginning of each function call to prevent errors.
+~~~~~~~~~~~~~~~~~~~~~~~~~~Grading Criteria~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Assignment Requirements: ___/3.0
+
+ Code Format/Cosmetics: ___/3.0
+
+ Header & Code Comments: ___/2.0
+
+ Output Format/Cosmetics: ___/2.0
+ ***Does Not Compile***: ___ (-10.0)
+ ***Late Work Deduction***: ___ (-0.5/day)
+ Total Grade: ___/10.0
+
+*****************************************************************************/
 #include <iostream>
 #include <cstdlib>
 
 using namespace std;
+
+/////////////////////////////
+//Class Declaration Section//
+/////////////////////////////
 
 template <class T>
 
@@ -34,6 +66,13 @@ public:
 
 };
 
+////////////////////////////////
+//Class Implementation Section//
+////////////////////////////////
+
+
+//Constructor Function:
+//Defines the Queue object, which is an array of default size 15, with the front and rear pointers set to position 0
 template <class T>
 Queue <T>::Queue()
 {
@@ -42,6 +81,8 @@ Queue <T>::Queue()
     front=rear=0;
 }
 
+//Overloaded Constructor Function:
+//Allows an object of type Queue to be defined with a specific array size, read in as the setSize
 template <class T>
 Queue <T>::Queue(int setSize)
 {
@@ -50,6 +91,8 @@ Queue <T>::Queue(int setSize)
     front=rear=0;
 }
 
+//Empty Check Function:
+//Checks to see if a queue is empty, a case where the front and rear pointers would be equal
 template <class T>
 bool Queue<T>::emptyQ()
 {
@@ -59,6 +102,10 @@ bool Queue<T>::emptyQ()
         return false;
 }
 
+//Full Check Function:
+//Checks to see if the queue is full, by checking the positions of the front and rear pointer.
+//If the rear pointer is one position behind the front, the queue is full.
+//Wraparound is handled by making the addition operation modular.
 template <class T>
 bool Queue<T>::fullQ()
 {
@@ -68,6 +115,9 @@ bool Queue<T>::fullQ()
         return false;
 }
 
+//Add Queue Function:
+//First, checks for a full queue. If there is room in the queue, the rear position is moved to the next available spot.
+//The element is added, and a message is displayed.
 template <class T>
 void Queue<T>::addQ(T data)
 {
@@ -84,6 +134,9 @@ void Queue<T>::addQ(T data)
     }
 }
 
+//Delete Queue Function:
+//First, checks for an empty queue. If there are indeed elements in the queue, the front pointed element is returned,
+//and the front pointer is moved one spot forward. This effectively removes the element, as it is overwritten when the rear loops back around to it.
 template <class T>
 T Queue<T>::delQ()
 {
@@ -100,6 +153,10 @@ T Queue<T>::delQ()
     }
 }
 
+//Length Queue Function:
+//Checks for the number of active elements in the queue, by measuring the distance between the front and the rear.
+//If the rear has a greater value than the front, a simple rear-front operation is performed, and the difference is output as the length.
+//If the front has a greater value than the rear, rear - front is performed, but the size of the queue is added to give an accurate, positive valued length.
 template <class T>
 int Queue<T>::lengthQ()
 {
@@ -117,16 +174,22 @@ int Queue<T>::lengthQ()
     }
 }
 
+//Write Queue Function
+//This function outputs the elements in the queue, along with null characters for empty elements, in their corresponding positions.
+//If the queue is not empty, the process begins. If the rear pointer is greater than the front pointer, a third pointer works from
+//the 0th element of the array to the final element. Each element is checked. If it falls inside the front <-> rear range, the value of the array is returned.
+//Otherwise, a null character is printed.
+//If the front pointer is greater than the rear pointer, the same 0 to final loop is run, but here, elements that are either less than the rear,
+//or greater than the front are returned. Else, the null character is returned.
+
 template <class T>
 void Queue<T>::writeQ()
 {
+    char nullchar = 237;
     if(emptyQ())
     {
         cout << "\nQueue Empty\n";
-    }/*for(int i=1; i<=lengthQ();i++)
-        {
-            cout << Q[(front+i)%size] << "  ";
-        }*/
+    }
     else if(rear>front)
     {
         for(int i=0; i<size;i++)
@@ -134,7 +197,7 @@ void Queue<T>::writeQ()
             if((i<=rear)&&(i>front))
                 cout << Q[i%size] << "  ";
             else
-                cout << "Null" << "  ";
+                cout << nullchar << "  ";
         }
     }
     else if(rear<front)
@@ -144,18 +207,24 @@ void Queue<T>::writeQ()
             if((i<=rear)||(i>front))
                 cout << Q[i%size] << "  ";
             else
-                cout << "Null" << "  ";
+                cout << nullchar << "  ";
         }
     }
 }
 
+
+//Clear Queue Function:
+//A simple clearing function. The front is set to be equal to the rear, so all the values will be overwritten as new elements are added.
 template <class T>
 void Queue <T>::clearQ()
 {
     front=rear=0;
 }
 
-
+//Grow Shrink Queue Function:
+//A function for testing growing and shrinking of the queue.
+//This menu based function allows you to add elements, delete elements, and print the length until you wish to quit.
+//The function is just a simple while loop, fetching input, and running the add and del functions.
 template <class T>
 void Queue<T>::growShrinkQ()
 {
@@ -195,6 +264,10 @@ void Queue<T>::growShrinkQ()
     }
 }
 
+//Wrap Queue Function:
+//A simple function that is used to test to make sure wraparound error is handled correctly.
+//The queue is filled almost to the brim, emptied, and then filled a bit more, causing wraparound.
+//The front and rear pointers are then displayed to show that wraparound has indeed occurred and has been handled without error.
 template <class T>
 void Queue<T>::wrapQ()
 {
@@ -208,6 +281,8 @@ void Queue<T>::wrapQ()
     cout << "The rear pointer is " << rear << endl;
 }
 
+//Grow Until Overflow Function:
+//This function checks for a full queue, clears it if it is so, and then adds elements until an overflow message is generated.
 template <class T>
 void Queue <T>::growTilOverflowQ()
 {
@@ -224,6 +299,8 @@ while(!fullQ())
 addQ('A');
 }
 
+//Shrink Until Underflow Function:
+//This function checks for a empty queue, fills it if it is so, and then deletes elements until an underflow message is generated.
 template <class T>
 void Queue <T>::shrinkTilUnderflowQ()
 {
@@ -240,6 +317,8 @@ while(!emptyQ())
 delQ();
 }
 
+//Output Queue Length 1 Function:
+//Shows that a queue of length one is handled correctly by creating one, and displaying a message verifying the length.
 template <class T>
 void Queue <T>::output1Q()
 {
@@ -255,6 +334,8 @@ void Queue <T>::output1Q()
     }
 }
 
+//Output Queue Length 5 Function:
+//Shows that a queue of length five is handled correctly by creating one, and displaying a message verifying the length.
 template <class T>
 void Queue <T>::output5Q()
 {
@@ -273,6 +354,8 @@ void Queue <T>::output5Q()
     }
 }
 
+//Full Output Check:
+//Shows that a full queue (size - 1) can be handled correctly by filling a queue, and then displaying a message.
 template <class T>
 void Queue <T>::outputFullQ()
 {
@@ -290,6 +373,8 @@ void Queue <T>::outputFullQ()
     }
 }
 
+//Output Cleared Check:
+//Shows that clearing queues is handled correctly by showing the original length, clearing the queue, and then showing the new, cleared length.
 template <class T>
 void Queue <T>::outputClearedQ()
 {
@@ -301,6 +386,7 @@ void Queue <T>::outputClearedQ()
 
 }
 
+//This function was created by Ryan Rabello for the Lists assignment. It was edited to include this assignment's functions.
 template <class T>
 char Queue<T>::miniMenu(bool isMiniMenu)
 //A menu that prints options, and takes the user's choice
@@ -332,6 +418,8 @@ char Queue<T>::miniMenu(bool isMiniMenu)
     return choice;
 }
 
+//This function was created by Ryan Rabello for the Lists assignment. It was edited to include this assignment's functions.
+//This is a nice welcome menu, along with the case statements for handling each of the potential menu choices
 template <class T>
 int Queue<T>::menu()
 {
@@ -365,6 +453,7 @@ int Queue<T>::menu()
 }
 
 
+//The main function, in which a Queue of type character, size 10 is initialized
 int main()
 {
 
